@@ -21,6 +21,10 @@
 2. In case you downloaded the JavaFX SDK, you have to run the tool via console:<br/>
 java --module-path "\<path to your JavaFX SDK lib folder\>" --add-modules javafx.controls,javafx.fxml -jar mlm-playground-basic.jar
 
+### Examples
+
+By default, all examples from the paper are loaded into the model. We also provide the standard version and an empty version (without SHACL shapes) as files that can be loaded by the tool for experimentation.
+
 ### MLM-Playground
 
 ![github](https://user-images.githubusercontent.com/26625992/179472082-fd3b9168-412c-472c-816e-e109501ffda8.jpg)
@@ -50,7 +54,3 @@ The <em>derived clabject description</em> displays (not modifiable) asserted and
 The <em>asserted clabject description</em> displays (modifiable) asserted facts of the current selected clabject. You can add additional facts about the clabject by asserting triples and clicking the <em>synchronization</em> button. Do not change properties of the ddo: and n: namespaces!
 
 The difference between the <em>derived clabject description</em> and the <em>asserted clabject description</em> can be seen in the above figure by the fact that the derived SHACL property shape is shown in the former but not in the latter.
-
-### Examples
-
-By default, all examples from the paper are loaded into the model. We also provide the standard version and an empty version (without SHACL shapes) as files that can be loaded by the tool for experimentation.
