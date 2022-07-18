@@ -1,7 +1,7 @@
 # MULTI2022
 
 <h2 align="center">Towards Integration-Preserving Customization of Just-in-Time Adaptive Interventions with Composite Clabjects in RDF and SHACL</h2>
-<h3 align="center">-- Demonstration --</h3>
+<h3 align="center">Demonstration</h3>
   
 ### Foundations
 
