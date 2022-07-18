@@ -30,16 +30,13 @@ By default, all examples from the paper are loaded into the model. We also provi
 ![github](https://user-images.githubusercontent.com/26625992/179472082-fd3b9168-412c-472c-816e-e109501ffda8.jpg)
 
 The <em>main menu</em> offers the following functionality:
-1. Model
-    1. Open: Open a model
-    2. Save: Save current model
-    3. Validate: Validation of the current model with regard to the SHACL shapes of the model
-2. Edit
-    1. Undo: Undo the last assertion (up to 5 times).
-    2. Redo: Redo the last undone assertion.
-    3. Globals: View and maintain things outside the hierarchy.
-4. View
-    1. SPARQL Query: Perform a SPARQL query.
+* Model > Open: Open a model
+* Model > Save: Save current model
+* Model > Validate: Validation of the current model with regard to the SHACL shapes of the model
+* Edit > Undo: Undo the last assertion (up to 5 times).
+* Edit > Redo: Redo the last undone assertion.
+* Edit > Globals: View and maintain things outside the hierarchy.
+* View > SPARQL Query: Perform a SPARQL query.
 
 The <em>search field</em> allows navigation within the hierarchy with auto complete support.
 
