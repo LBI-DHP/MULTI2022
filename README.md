@@ -12,13 +12,13 @@
 
 ### Prerequisites
 
-1. (Oracle) JDK Version 18
-2. In case your JDK (e.g. OpenJDK) does not come with the JavaFX SDK, you also need to download it: https://openjfx.io/
+* (Oracle) JDK Version 18
+* In case your JDK (e.g. OpenJDK) does not come with the JavaFX SDK, you also need to download it: https://openjfx.io/
 
 ### Running
 
-1. Double click or run the tool (<em>mlm-playground.jar</em>) via console: java -jar mlm-playground.jar
-2. In case you downloaded the JavaFX SDK, you have to run the tool via console:<br/>
+* Double click or run the tool (<em>mlm-playground.jar</em>) via console: java -jar mlm-playground.jar
+* In case you downloaded the JavaFX SDK, you have to run the tool via console:<br/>
 java --module-path "\<path to your JavaFX SDK lib folder\>" --add-modules javafx.controls,javafx.fxml -jar mlm-playground-basic.jar
 
 ### Examples
