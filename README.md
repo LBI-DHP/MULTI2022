@@ -17,9 +17,7 @@
 
 ### Running
 
-The JAR file is made available as a release in this Github repository.
-
-1. Double click or run the tool via console: java -jar mlm-playground.jar
+1. Double click or run the tool (<em>mlm-playground.jar</em>) via console: java -jar mlm-playground.jar
 2. In case you downloaded the JavaFX SDK, you have to run the tool via console:<br/>
 java --module-path "\<path to your JavaFX SDK lib folder\>" --add-modules javafx.controls,javafx.fxml -jar mlm-playground-basic.jar
 
