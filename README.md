@@ -23,7 +23,7 @@ java --module-path "\<path to your JavaFX SDK lib folder\>" --add-modules javafx
 
 ### Examples
 
-By default, all examples from the paper are loaded into the model. We also provide the default version (<em>model-full.ttl</em>) and an empty version without SHACL shapes (<em>model-empty.ttl</em>) as external files that can be loaded by the tool for experimentation.
+By default, all examples from the paper are loaded into the model. We also provide the default version (<em>model-full.ttl</em>) and an empty version without SHACL shapes, SHACL rules and modeled classification criteria (<em>model-empty.ttl</em>) as external files that can be loaded by the tool for experimentation.
 
 ### MLM-Playground
 
