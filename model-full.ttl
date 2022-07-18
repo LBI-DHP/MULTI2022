@@ -1,0 +1,268 @@
+@prefix rdf:			<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:			<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:            <http://www.w3.org/2002/07/owl#> .
+@prefix sh:		        <http://www.w3.org/ns/shacl#> .
+@prefix xsd:	        <http://www.w3.org/2001/XMLSchema#> .
+@prefix ddo:			<http://dke.jku.at/ddo#> .
+@prefix n:              <http://dke.jku.at/ddo-hasNamedChild#> .
+
+@base 					<http://example.org/jitais/> .
+
+<PrefixDeclarations>
+    sh:declare  [
+        sh:namespace  "http://dke.jku.at/ddo-hasNamedChild#" ;
+        sh:prefix     "n"
+    ] ;
+    sh:declare  [
+        sh:namespace  "http://dke.jku.at/ddo#" ;
+        sh:prefix     "ddo"
+    ] ;
+    sh:declare  [
+        sh:namespace  "http://www.w3.org/2000/01/rdf-schema#" ;
+        sh:prefix     "rdfs"
+    ] ;
+    sh:declare  [
+        sh:namespace  "http://www.w3.org/2001/XMLSchema#" ;
+        sh:prefix     "xsd"
+    ] ;
+    sh:declare  [
+        sh:namespace  "http://www.w3.org/ns/shacl#" ;
+        sh:prefix     "sh"
+    ] ;
+    sh:declare  [
+        sh:namespace  "http://www.w3.org/2002/07/owl#" ;
+        sh:prefix     "owl"
+    ] ;
+    sh:declare  [
+        sh:namespace  "http://www.w3.org/1999/02/22-rdf-syntax-ns#" ;
+        sh:prefix     "rdf"
+    ] .
+
+<http://example.org/jitais>
+    rdf:type ddo:DomainObject .
+
+<CLASS/Study>
+	rdf:type ddo:DomainObjectClass , ddo:ModeledClass ;
+	ddo:name "Study" ;
+	ddo:parent <CLASS> .
+
+<CLASS/Study/Participant>
+	rdf:type ddo:DomainObjectClass , ddo:ModeledClass ;
+	ddo:name "Participant" ;
+	ddo:parent <CLASS/Study> .
+
+<CLASS/Study/Participant/Intervention>
+	rdf:type ddo:OccurrenceClass , ddo:ModeledClass ;
+	ddo:leafs ddo:AbstractClass ;
+	ddo:name "Intervention" ;
+	ddo:parent <CLASS/Study/Participant> ;
+	sh:property [
+	    sh:path <message> ;
+	    sh:datatype xsd:string ;
+	    sh:minCount 1 ;
+	    sh:maxCount 1 ;
+	] .
+
+<CLASS/Study/Participant/Intervention/CLASS>
+    sh:property [
+        sh:path <description> ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+    ] .
+
+<CLASS/Study/Participant/Observation>
+	rdf:type ddo:OccurrenceClass , ddo:ModeledClass ;
+	ddo:leafs ddo:AbstractClass ;
+	ddo:name "Observation" ;
+	ddo:parent <CLASS/Study/Participant> .
+
+<ExampleStudy>
+    rdf:type ddo:DomainObject ;
+    ddo:instanceOf n:Study ;
+    ddo:name "ExampleStudy" ;
+    ddo:parent <http://example.org/jitais> .
+
+<ExampleStudy/CLASS/Participant/MotivationalMessage>
+	rdf:type ddo:OccurrenceClass , ddo:ModeledClass ;
+    ddo:specializationOf n:Intervention ;
+    ddo:leafs ddo:ConcreteClass ;
+    ddo:name "MotivationalMessage" ;
+    ddo:parent <ExampleStudy/CLASS/Participant> .
+
+<ExampleStudy/CLASS/Participant/WeightObservation>
+	rdf:type ddo:OccurrenceClass , ddo:ModeledClass ;
+    ddo:specializationOf n:Observation ;
+    ddo:leafs ddo:ConcreteClass ;
+    ddo:name "WeightObservation" ;
+    ddo:parent <ExampleStudy/CLASS/Participant> .
+
+<ExampleStudy/CLASS/Participant/StepCountObservation>
+	rdf:type ddo:OccurrenceClass , ddo:ModeledClass ;
+    ddo:specializationOf n:Observation ;
+    ddo:leafs ddo:ConcreteClass ;
+    ddo:name "StepCountObservation" ;
+    ddo:parent <ExampleStudy/CLASS/Participant> .
+
+<ExampleStudy/CLASS/Participant/WeatherObservation>
+	rdf:type ddo:OccurrenceClass , ddo:ModeledClass ;
+    ddo:specializationOf n:Observation ;
+    ddo:leafs ddo:ConcreteClass ;
+    ddo:name "WeatherObservation" ;
+    ddo:parent <ExampleStudy/CLASS/Participant> .
+
+<ExampleStudy/CLASS/ControlGroupParticipant>
+	rdf:type ddo:DomainObjectClass , ddo:ModeledClass ;
+    ddo:specializationOf n:Participant ;
+    ddo:name "ControlGroupParticipant" ;
+    ddo:parent <ExampleStudy/CLASS> .
+
+<ExampleStudy/CLASS/InterventionGroupParticipant>
+	rdf:type ddo:DomainObjectClass , ddo:ModeledClass ;
+    ddo:specializationOf n:Participant ;
+    ddo:name "InterventionGroupParticipant" ;
+    ddo:parent <ExampleStudy/CLASS> .
+
+<ExampleStudy/CLASS/InterventionGroupParticipant/WalkingSuggestion>
+	rdf:type ddo:OccurrenceClass , ddo:ModeledClass ;
+    ddo:specializationOf n:Intervention ;
+    ddo:leafs ddo:ConcreteClass ;
+    ddo:name "WalkingSuggestion" ;
+    ddo:parent <ExampleStudy/CLASS/InterventionGroupParticipant> ;
+    <description> "The weather ..." ;
+    <minDuration> 5 ;
+    <maxDuration> 60 ;
+    sh:property [
+        sh:path <duration> ;
+        sh:datatype xsd:integer ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+    ] .
+
+<ExampleStudy/CLASS/InterventionGroupParticipant/WalkingSuggestion/CLASS>
+    sh:property [
+        sh:path <minDuration> ;
+        sh:datatype xsd:integer ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path <maxDuration> ;
+        sh:datatype xsd:integer ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:property [
+        sh:path <avgDuration> ;
+        sh:datatype xsd:decimal ;
+        sh:maxCount 1 ;
+    ] ;
+    sh:rule [
+        rdf:type sh:SPARQLRule ;
+        sh:prefixes <PrefixDeclarations> ;
+        sh:construct "BASE <http://example.org/jitais/> CONSTRUCT { $this <avgDuration> ?avg } WHERE { SELECT $this (AVG(?duration) AS ?avg) WHERE { ?obj rdf:type/rdfs:subClassOf* $this ; <duration> ?duration . } GROUP BY $this }" ;
+    ] ;
+    sh:rule [
+        rdf:type sh:SPARQLRule ;
+        sh:prefixes <PrefixDeclarations> ;
+        sh:construct "BASE <http://example.org/jitais/> CONSTRUCT { $this sh:property [ sh:path <duration> ; sh:minInclusive ?minDuration ; ] } WHERE { $this <minDuration> ?minDuration }" ;
+    ] .
+
+<ExampleStudy/Jane>
+    rdf:type ddo:DomainObject ;
+    ddo:instanceOf n:InterventionGroupParticipant ;
+    ddo:name "Jane" ;
+    ddo:parent <ExampleStudy> .
+
+<ExampleStudy/Jane/CLASS/WalkingSuggestion>
+    <minDuration> 10 .
+
+<ExampleStudy/Jane/MotivationalMessage-1>
+    rdf:type ddo:Occurrence ;
+    ddo:instanceOf n:MotivationalMessage ;
+    ddo:name "MotivationalMessage-1" ;
+    ddo:parent <ExampleStudy/Jane> ;
+    <message> "..." .
+
+<ExampleStudy/Jane/WeatherObservation-1>
+    rdf:type ddo:Occurrence ;
+    ddo:instanceOf n:WeatherObservation ;
+    ddo:name "WeatherObservation-1" ;
+    ddo:parent <ExampleStudy/Jane> .
+
+<ExampleStudy/Jane/WalkingSuggestion-1>
+    rdf:type ddo:Occurrence ;
+    ddo:instanceOf n:WalkingSuggestion ;
+    ddo:name "WalkingSuggestion-1" ;
+    ddo:parent <ExampleStudy/Jane> ;
+    <message> "Let's go for a walk! ..." ;
+    <duration> 30 .
+
+<ExampleStudy/Jane/WalkingSuggestion-2>
+    rdf:type ddo:Occurrence ;
+    ddo:instanceOf n:WalkingSuggestion ;
+    ddo:name "WalkingSuggestion-2" ;
+    ddo:parent <ExampleStudy/Jane> ;
+    <message> "Let's go for a walk! ..." ;
+    <duration> 10 .
+
+<ExampleStudy/Joe>
+    rdf:type ddo:DomainObject ;
+    ddo:instanceOf n:InterventionGroupParticipant ;
+    ddo:name "Joe" ;
+    ddo:parent <ExampleStudy> .
+
+<ExampleStudy/Joe/WalkingSuggestion-1>
+    rdf:type ddo:Occurrence ;
+    ddo:instanceOf n:WalkingSuggestion ;
+    ddo:name "WalkingSuggestion-1" ;
+    ddo:parent <ExampleStudy/Joe> ;
+    <message> "Let's go for a walk! ..." ;
+    <duration> 10 .
+
+<ExampleStudy/Joe/WalkingSuggestion-2>
+    rdf:type ddo:Occurrence ;
+    ddo:instanceOf n:WalkingSuggestion ;
+    ddo:name "WalkingSuggestion-2" ;
+    ddo:parent <ExampleStudy/Joe> ;
+    <message> "Let's go for a walk! ..." ;
+    <duration> 50 .
+
+
+<ExampleStudy/CLASS/Participant> rdf:type <byStudy> .
+<ExampleStudy/CLASS/Participant/Intervention> rdf:type <byStudy> .
+<ExampleStudy/CLASS/Participant/MotivationalMessage> rdf:type <byStudy> , <byInterventionType> .
+<ExampleStudy/CLASS/Participant/Observation> rdf:type <byStudy> .
+<ExampleStudy/CLASS/Participant/WeightObservation> rdf:type <byStudy> , <byObservationType> .
+<ExampleStudy/CLASS/Participant/StepCountObservation> rdf:type <byStudy> , <byObservationType> .
+<ExampleStudy/CLASS/Participant/WeatherObservation> rdf:type <byStudy> , <byObservationType> .
+
+<ExampleStudy/CLASS/ControlGroupParticipant/Intervention> rdf:type <byStudy> , <byParticipantType> .
+<ExampleStudy/CLASS/ControlGroupParticipant/MotivationalMessage> rdf:type <byStudy> , <byParticipantType> , <byInterventionType> .
+<ExampleStudy/CLASS/ControlGroupParticipant/Observation> rdf:type <byStudy> , <byParticipantType> .
+<ExampleStudy/CLASS/ControlGroupParticipant/WeightObservation> rdf:type <byStudy> , <byParticipantType> , <byObservationType> .
+<ExampleStudy/CLASS/ControlGroupParticipant/StepCountObservation> rdf:type <byStudy> , <byParticipantType> , <byObservationType> .
+<ExampleStudy/CLASS/ControlGroupParticipant/WeatherObservation> rdf:type <byStudy> , <byParticipantType> , <byObservationType> .
+
+<ExampleStudy/CLASS/InterventionGroupParticipant/Intervention> rdf:type <byStudy> , <byParticipantType> .
+<ExampleStudy/CLASS/InterventionGroupParticipant/MotivationalMessage> rdf:type <byStudy> , <byParticipantType> , <byInterventionType> .
+<ExampleStudy/CLASS/InterventionGroupParticipant/WalkingSuggestion> rdf:type <byStudy> , <byParticipantType> , <byInterventionType> .
+<ExampleStudy/CLASS/InterventionGroupParticipant/Observation> rdf:type <byStudy> , <byParticipantType> .
+<ExampleStudy/CLASS/InterventionGroupParticipant/WeightObservation> rdf:type <byStudy> , <byParticipantType> , <byObservationType> .
+<ExampleStudy/CLASS/InterventionGroupParticipant/StepCountObservation> rdf:type <byStudy> , <byParticipantType> , <byObservationType> .
+<ExampleStudy/CLASS/InterventionGroupParticipant/WeatherObservation> rdf:type <byStudy> , <byParticipantType> , <byObservationType> .
+
+<ExampleStudy/Jane/CLASS> rdf:type <byStudy> , <byParticipant> .
+<ExampleStudy/Jane/CLASS/Intervention> rdf:type <byStudy> , <byParticipant> .
+<ExampleStudy/Jane/CLASS/MotivationalMessage> rdf:type <byStudy> , <byParticipant> , <byInterventionType> .
+<ExampleStudy/Jane/CLASS/WalkingSuggestion> rdf:type <byStudy> , <byParticipant> , <byInterventionType> .
+<ExampleStudy/Jane/CLASS/Observation> rdf:type <byStudy> , <byParticipant> .
+<ExampleStudy/Jane/CLASS/WeightObservation> rdf:type <byStudy> , <byParticipant> , <byObservationType> .
+<ExampleStudy/Jane/CLASS/StepCountObservation> rdf:type <byStudy> , <byParticipant> , <byObservationType> .
+<ExampleStudy/Jane/CLASS/WeatherObservation> rdf:type <byStudy> , <byParticipant> , <byObservationType> .
+
+<ExampleStudy/Joe/CLASS> rdf:type <byStudy> , <byParticipant> .
+<ExampleStudy/Joe/CLASS/Intervention> rdf:type <byStudy> , <byParticipant> .
+<ExampleStudy/Joe/CLASS/MotivationalMessage> rdf:type <byStudy> , <byParticipant> , <byInterventionType> .
+<ExampleStudy/Joe/CLASS/WalkingSuggestion> rdf:type <byStudy> , <byParticipant> , <byInterventionType> .
+<ExampleStudy/Joe/CLASS/Observation> rdf:type <byStudy> , <byParticipant> .
+<ExampleStudy/Joe/CLASS/WeightObservation> rdf:type <byStudy> , <byParticipant> , <byObservationType> .
+<ExampleStudy/Joe/CLASS/StepCountObservation> rdf:type <byStudy> , <byParticipant> , <byObservationType> .
+<ExampleStudy/Joe/CLASS/WeatherObservation> rdf:type <byStudy> , <byParticipant> , <byObservationType> .
