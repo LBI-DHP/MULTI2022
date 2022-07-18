@@ -13,7 +13,7 @@
 ### Prerequisites
 
 * (Oracle) JDK Version 18
-* In case your JDK (e.g. OpenJDK) does not come with the JavaFX SDK, you also need to download it: https://openjfx.io/
+* In case your JDK (e.g., OpenJDK) does not come with the JavaFX SDK, you also need to download it: https://openjfx.io/
 
 ### Running
 
