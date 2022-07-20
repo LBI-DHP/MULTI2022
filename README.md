@@ -12,18 +12,18 @@
 
 ### Prerequisites
 
-* (Oracle) JDK Version 18
-* In case your JDK (e.g., OpenJDK) does not come with the JavaFX SDK, you also need to download it: https://openjfx.io/
+* (Oracle) JDK Version 18 (e.g., see https://www.oracle.com/java/technologies/downloads/)
+* In case your JDK (e.g., OpenJDK) does not come with the JavaFX SDK, you also need to download it (e.g., see https://openjfx.io/)
 
 ### Running
 
 * Double click or run the tool (<em>mlm-playground.jar</em>) via console: java -jar mlm-playground.jar
-* In case you downloaded the JavaFX SDK, you have to run the tool via console:<br/>
-java --module-path "\<path to your JavaFX SDK lib folder\>" --add-modules javafx.controls,javafx.fxml -jar mlm-playground-basic.jar
+* In case you explicitly had to download the JavaFX SDK, you have to run the tool via console:<br/>
+java --module-path "\<path to your JavaFX SDK lib folder\>" --add-modules javafx.controls,javafx.fxml -jar mlm-playground.jar
 
 ### Examples
 
-By default, all examples from the paper are loaded into the model. We also provide the default version (<em>model-full.ttl</em>) and an empty version without SHACL shapes, SHACL rules and modeled classification criteria (<em>model-empty.ttl</em>) as external files that can be loaded by the tool for experimentation.
+By default, all examples from the paper are loaded. We also provide the default version (<em>model-full.ttl</em>) and an empty version without SHACL shapes, SHACL rules and modeled classification criteria (<em>model-empty.ttl</em>) as external files that can be loaded by the tool for experimentation.
 
 ### MLM-Playground
 
@@ -38,16 +38,16 @@ The <em>main menu</em> offers the following functionality:
 * Edit > Globals: View and maintain things outside the hierarchy.
 * View > SPARQL Query: Perform a SPARQL query.
 
-The <em>search field</em> allows navigation within the hierarchy with auto complete support.
+The <em>search field</em> allows navigation within the composite clabject hierarchy with auto complete support.
 
-The <em>tree view</em> also allows for navigation within the hierarchy, with clabjects being represented by their local name and specialization indicated by ">". Objects are represented by a file symbol, classes by folders and metaclasses by double folders.
+The <em>tree view</em> also allows for navigation within the composite clabject hierarchy, with clabjects being represented by their local name and specialization indicated by ">". Objects are additionally marked by a file symbol, classes by folders and meta classes by double folders.
 
 Using the arrows, you can navigate <em>back and forth</em> (up to 10 times).
 
 The <em>model size</em> is displayed as the number of triples.
 
-The <em>derived clabject description</em> displays (not modifiable) asserted and derived facts of the current selected clabject. The blue coloured things are resources within the model that can be navigated to by clicking on them. For this demonstration, properties of the ddo: and n: namespaces are irrelevant, however, you may want to use them for navigation.
+The <em>derived clabject description</em> displays (not modifiable) asserted and derived facts of the currently selected clabject. The blue coloured things are resources within the composite clabject hierarchy that can be navigated to by clicking on them. For this demonstration, properties of the ddo: and n: namespaces are irrelevant, however, you may want to use them for navigation.
 
 The <em>asserted clabject description</em> displays (modifiable) asserted facts of the current selected clabject. You can add additional facts about the clabject by asserting triples and clicking the <em>synchronization</em> button. Do not change properties of the ddo: and n: namespaces!
 
-The difference between the <em>derived clabject description</em> and the <em>asserted clabject description</em> can be seen in the above figure by the fact that the derived SHACL property shape is shown in the former but not in the latter.
+The difference between the derived clabject description and the asserted clabject description is evident in the figure above, e.g. by the derived SHACL property form being displayed in the former but not in the latter.
