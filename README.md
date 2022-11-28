@@ -12,20 +12,20 @@
 
 ### Prerequisites
 
-* (Oracle) JDK Version 18 (e.g., see https://www.oracle.com/java/technologies/downloads/)
+* (Oracle) JDK Version 19 (e.g., see https://www.oracle.com/java/technologies/downloads/)
 * In case your JDK (e.g., OpenJDK) does not come with the JavaFX SDK, you also need to download it (e.g., see https://openjfx.io/)
 
 ### Running
 
-* Double click or run the tool (<em>mlm-playground.jar</em>) via console: java -jar mlm-playground.jar
+* Double click or run the tool (<em>MULTI2022.jar</em>) via console: java -jar MULTI2022.jar
 * In case you explicitly had to download the JavaFX SDK, you have to run the tool via console:<br/>
-java --module-path "\<path to your JavaFX SDK lib folder\>" --add-modules javafx.controls,javafx.fxml -jar mlm-playground.jar
+java --module-path "\<path to your JavaFX SDK lib folder\>" --add-modules javafx.controls,javafx.fxml -jar MULTI2022.jar
 
 ### Examples
 
-By default, all examples from the paper are loaded. We also provide the default version (<em>model-full.ttl</em>) and an empty version without SHACL shapes, SHACL rules and modeled classification criteria (<em>model-empty.ttl</em>) as external files that can be loaded by the tool for experimentation.
+By default, all examples from the paper are loaded. We provide the default version (<em>model-full.ttl</em>) and an empty version without SHACL shapes, SHACL rules and modeled classification criteria (<em>model-empty.ttl</em>) as files under the resource folder that can be loaded by the tool for experimentation.
 
-### MLM-Playground
+### Multi-level Modeling Playground
 
 ![github](https://user-images.githubusercontent.com/26625992/179472082-fd3b9168-412c-472c-816e-e109501ffda8.jpg)
 
