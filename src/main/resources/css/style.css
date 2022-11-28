@@ -1,0 +1,71 @@
+* {
+    -fx-font-family: Consolas;
+    -fx-font-size: 12pt;
+}
+
+.tree-cell:expanded {
+    -fx-font-weight: bold ;
+    -fx-text-fill: rgb(0,74,155) ;
+}
+
+.tree-view .tree-cell:selected , .tree-cell:pressed {
+    -fx-background-color: lightgrey ;
+}
+
+.bordered {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8, 7, 6;
+    -fx-border-width: 1;
+    -fx-border-color: lightgrey;
+    -fx-border-radius: 8, 7, 6;
+    -fx-padding: 5px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+}
+
+.non-bordered {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8, 7, 6;
+    -fx-border-width: 0;
+    -fx-border-radius: 8, 7, 6;
+    -fx-padding: 5px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+}
+
+.hyperlink {
+    -fx-text-fill: rgb(0,74,155) ;
+    -fx-padding: 0;
+    -fx-spacing: 0;
+}
+
+.text-area {
+    -fx-background-color: white;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.split-pane {
+    -fx-background-color: transparent, transparent;
+    -fx-background-radius: 8, 7, 6;
+    -fx-border-width: 1;
+    -fx-border-color: transparent;
+    -fx-border-radius: 8, 7, 6;
+}
+
+.split-pane-divider {
+    -fx-background-color: lightgrey ;
+    -fx-border-radius: 8, 7, 6;
+    -fx-background-radius: 8, 7, 6;
+    -fx-padding: 2px;
+}
+
+.split-pane .scroll-pane .label {
+    -fx-background-color: white;
+}
+
+.split-pane .hyperlink {
+    -fx-background-color: white;
+}

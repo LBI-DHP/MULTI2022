@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.TextFlow?>
+<BorderPane fx:id="borderPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.Controller">
+
+    <top>
+        <VBox spacing="10" styleClass="bordered">
+            <HBox>
+                <MenuBar HBox.hgrow="ALWAYS">
+                    <Menu text="Domain Model">
+                        <MenuItem onAction="#newDomainModel" text="New ..."/>
+                        <MenuItem onAction="#openDomainModel" text="Open ..."/>
+                        <MenuItem onAction="#saveDomainModel" text="Save ..."/>
+                        <MenuItem onAction="#validateDomainModel" text="Validate ..."/>
+                    </Menu>
+                    <Menu text="Edit">
+                        <MenuItem fx:id="undoMenuItem" disable="true" onAction="#undo" text="Undo"/>
+                        <MenuItem fx:id="redoMenuItem" disable="true" onAction="#redo" text="Redo"/>
+                        <MenuItem onAction="#editGlobals" text="Globals"/>
+                    </Menu>
+                    <Menu text="View">
+                        <MenuItem onAction="#executeSparqlQuery" text="SPARQL Query"/>
+                        <MenuItem onAction="#showLinguisticModel" text="Linguistic Model" />
+                    </Menu>
+                    <Menu text="Help">
+                        <MenuItem disable="true" text="About"/>
+                    </Menu>
+                </MenuBar>
+                <MenuBar HBox.hgrow="SOMETIMES">
+                    <Menu fx:id="derivedModelSizeMenu" disable="true"/>
+                </MenuBar>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Button fx:id="backwardButton" onAction="#goBackward"/>
+                <Button fx:id="forwardButton" onAction="#goForward"/>
+                <Label fx:id="domainModelLabel"/>
+                <TextField fx:id="explorerTextField" HBox.hgrow="ALWAYS"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <SplitPane dividerPositions="0.2f, 0.8f">
+            <VBox>
+                <HBox styleClass="non-bordered" spacing="10">
+                    <MenuButton text="Add">
+                        <items>
+                            <MenuItem fx:id="addComponentClassMenuItem" disable="true"
+                                      onAction="#addComponentClass"
+                                      text="Component Class" />
+                            <MenuItem fx:id="addSpecializationMenuItem" disable="true"
+                                      onAction="#addSpecialization"
+                                      text="Specialization"/>
+                            <MenuItem fx:id="addDomainObjectMenuItem" disable="true" onAction="#addDomainObject"
+                                      text="Domain Object"/>
+                            <MenuItem fx:id="addOccurrenceMenuItem" disable="true" onAction="#addOccurrence"
+                                      text="Occurrence" />
+                        </items>
+                    </MenuButton>
+                    <Button fx:id="deleteElementButton" disable="true" onAction="#deleteElement" text="Delete"/>
+                    <Button onAction="#showDiagram" text="Diagram" visible="false"/>
+                </HBox>
+                <TreeView fx:id="treeView" onMouseClicked="#selectModelElementByTreeView" VBox.vgrow="ALWAYS"
+                          styleClass="bordered"/>
+            </VBox>
+            <SplitPane orientation="VERTICAL" dividerPositions="0.5f, 0.5f">
+                <VBox>
+                    <HBox spacing="10" styleClass="non-bordered">
+                        <ComboBox fx:id="selectedViewComboBox"/>
+                        <Button onAction="#synchronizeAssertions" text="Synchronize"/>
+                        <ProgressIndicator fx:id="synchronizationIndicator" visible="false" prefHeight="20"
+                                           prefWidth="20"/>
+                    </HBox>
+                    <ScrollPane VBox.vgrow="ALWAYS" styleClass="bordered">
+                        <TextFlow fx:id="viewTextFlow"/>
+                    </ScrollPane>
+                </VBox>
+                <TextArea fx:id="assertionsTextArea" styleClass="bordered" VBox.vgrow="ALWAYS"/>
+            </SplitPane>
+        </SplitPane>
+    </center>
+
+</BorderPane>

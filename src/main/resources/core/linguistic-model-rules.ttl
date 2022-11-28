@@ -1,0 +1,273 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix sh:		<http://www.w3.org/ns/shacl#> .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix ddo:	<http://dke.jku.at/ddo#> .
+@prefix n:      <http://dke.jku.at/ddo-hasNamedChild#> .
+
+ddo:Prefixes
+	sh:declare
+		[
+			sh:prefix "rdf" ;
+			sh:namespace "http://www.w3.org/1999/02/22-rdf-syntax-ns#"^^xsd:anyURI ;
+		] ,
+		[
+			sh:prefix "rdfs" ;
+			sh:namespace "http://www.w3.org/2000/01/rdf-schema#"^^xsd:anyURI ;
+		] ,
+		[
+			sh:prefix "sh" ;
+			sh:namespace "http://www.w3.org/ns/shacl#"^^xsd:anyURI ;
+		] ,
+		[
+			sh:prefix "xsd" ;
+			sh:namespace "http://www.w3.org/2001/XMLSchema#"^^xsd:anyURI ;
+		] ,
+		[
+            sh:prefix "owl" ;
+        	sh:namespace "http://www.w3.org/2002/07/owl#"^^xsd:anyURI ;
+    	] ,
+		[
+			sh:prefix "ddo" ;
+			sh:namespace "http://dke.jku.at/ddo#"^^xsd:anyURI ;
+		] ,
+		[
+		    sh:prefix "n" ;
+            sh:namespace "http://dke.jku.at/ddo-hasNamedChild#"^^xsd:anyURI ;
+        ] .
+
+ddo:AbstractClass
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Clabject .
+
+ddo:Categorization
+    rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+    rdfs:subClassOf ddo:MetaClass .
+
+ddo:Class
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Element , rdfs:Class , sh:NodeShape .
+
+ddo:Clabject
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf ddo:Object , ddo:Class ;
+	sh:rule [
+        rdf:type sh:TripleRule ;
+        sh:subject sh:this ;
+        sh:predicate rdf:type ;
+        sh:object ddo:DomainObjectClass ;
+        sh:condition [
+            sh:path ( [ sh:oneOrMorePath rdfs:subClassOf ] rdf:type ) ;
+            sh:hasValue ddo:DomainObjectClass ;
+        ] ;
+        ddo:order 3 ;
+        ddo:forwardChaining false ;
+    ] ;
+    sh:rule [
+        rdf:type sh:TripleRule ;
+        sh:subject sh:this ;
+        sh:predicate rdf:type ;
+        sh:object ddo:OccurrenceClass ;
+        sh:condition [
+            sh:path ( [ sh:oneOrMorePath rdfs:subClassOf ] rdf:type ) ;
+            sh:hasValue ddo:OccurrenceClass ;
+        ] ;
+        ddo:order 3 ;
+        ddo:forwardChaining false ;
+    ] ;
+    sh:rule [
+        rdf:type sh:TripleRule ;
+        sh:subject sh:this ;
+        sh:predicate rdf:type ;
+        sh:object ddo:AbstractClass ;
+        sh:condition [
+            sh:or (
+                [ sh:path ( ddo:modeledClass rdf:type ) ; sh:hasValue ddo:DomainObjectClass ; ]
+                [ sh:path ddo:leafs ; sh:hasValue ddo:AbstractClass ; ]
+                [ sh:path ( ddo:modeledClass ddo:leafs ) ; sh:hasValue ddo:AbstractClass ; ]
+                [ sh:path ( ddo:parent rdf:type ) ; sh:hasValue ddo:AbstractClass ; ]
+            ) ;
+        ] ;
+        ddo:order 3 ;
+        ddo:forwardChaining true ;
+    ] ;
+    sh:rule [
+        rdf:type sh:TripleRule ;
+        sh:subject sh:this ;
+        sh:predicate rdf:type ;
+        sh:object ddo:ConcreteClass ;
+        sh:condition [
+            sh:or (
+                [ sh:path ( ddo:parent rdf:type ) ; sh:hasValue ddo:DomainObject ; ]
+                [
+                    sh:property [ sh:path ( ddo:parent rdf:type ) ; sh:hasValue ddo:ConcreteClass ;] ;
+                    sh:property [ sh:path ( ddo:modeledClass ddo:leafs ) ; sh:hasValue ddo:ConcreteClass ; ] ;
+                ]
+            )
+        ] ;
+        ddo:order 3 ;
+        ddo:forwardChaining true ;
+    ] ;
+    sh:rule [
+        rdf:type sh:SPARQLRule ;
+        sh:prefixes ddo:Prefixes ;
+        ddo:order 2 ;
+        ddo:forwardChaining true ;
+        sh:construct """
+            CONSTRUCT {
+                ?inducedClass rdf:type ddo:InducedClass ;
+                    ddo:name ?name ;
+                    ddo:parent $this ;
+                    ddo:modeledClass ?modeledClass ;
+                    rdfs:subClassOf ?class , ?superClass .
+            }
+            WHERE {
+                $this rdfs:subClassOf ?superComposite .
+                ?class ddo:name ?name ; ddo:parent ?superComposite ; ddo:modeledClass ?modeledClass .
+                BIND(iri(str($this) + "/" + ?name) AS ?inducedClass)
+                OPTIONAL {
+                    ?modeledClass rdfs:subClassOf/ddo:modeledClass ?superModeledClass .
+                    ?superClass ddo:parent $this ; ddo:modeledClass ?superModeledClass .
+                }
+            }
+        """ ;
+    ] ;
+    sh:rule [
+        rdf:type sh:SPARQLRule ;
+        sh:prefixes ddo:Prefixes ;
+        ddo:order 2 ;
+        ddo:forwardChaining true ;
+        sh:construct """
+            CONSTRUCT {
+                ?powerType rdf:type ddo:MetaClass ;
+                    rdfs:subClassOf ?superPowerType ;
+                    ddo:parent $this ;
+                    ddo:name "CLASS" .
+                $this rdf:type ?powerType .
+            }
+            WHERE {
+                BIND(iri(str($this) + "/CLASS") AS ?powerType)
+                OPTIONAL {
+                    $this rdfs:subClassOf ?superClass .
+                    ?superPowerType rdf:type ddo:MetaClass ; ddo:parent ?superClass .
+                }
+            }
+        """ ;
+    ] .
+
+ddo:ConcreteClass
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Clabject .
+
+ddo:DomainObject
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Individual ;
+	sh:rule [
+        rdf:type sh:SPARQLRule ;
+        sh:prefixes ddo:Prefixes ;
+        ddo:order 2 ;
+        ddo:forwardChaining true ;
+        sh:construct """
+            CONSTRUCT {
+    		    $this rdf:type ?singletonClass .
+    			?singletonClass
+    			    rdf:type ddo:DomainObjectClass , ddo:InducedClass ;
+    			    rdfs:subClassOf ?superClass ;
+    			    ddo:name "CLASS" ;
+    			    ddo:parent $this .
+            }
+            WHERE {
+    		    BIND(iri(str($this) + "/CLASS") AS ?singletonClass)
+    			OPTIONAL {
+    			    $this ddo:instanceOf ?name ; ddo:parent/rdf:type ?class .
+    			    ?class ?name ?superClass .
+    			}
+        	}
+        """ ;
+    ] .
+
+ddo:DomainObjectClass
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Clabject .
+
+ddo:Individual
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Object .
+
+ddo:InducedClass
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Clabject .
+
+ddo:MetaClass
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Class .
+
+ddo:MetaElement
+	rdf:type rdfs:Class , sh:NodeShape .
+
+ddo:ModeledClass
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Clabject ;
+	sh:rule [
+        rdf:type sh:TripleRule ;
+    	sh:subject sh:this ;
+    	sh:predicate ddo:modeledClass ;
+    	sh:object sh:this ;
+    	ddo:order 1 ;
+    	ddo:forwardChaining false ;
+    ] ;
+    sh:rule [
+        rdf:type sh:SPARQLRule ;
+        sh:prefixes ddo:Prefixes ;
+        ddo:order 1 ;
+        ddo:forwardChaining false ;
+        sh:construct """
+            CONSTRUCT { $this rdfs:subClassOf ?superClass }
+            WHERE {
+                $this ddo:specializationOf ?superClassName ; ddo:parent ?parent .
+                ?parent ?superClassName ?superClass .
+            }
+        """ ;
+    ] .
+
+ddo:Element
+	rdf:type rdfs:Class , sh:NodeShape ;
+	sh:rule [
+        rdf:type sh:SPARQLRule ;
+        sh:prefixes ddo:Prefixes ;
+        ddo:order 0 , 2 ;
+        ddo:forwardChaining true ;
+        sh:construct """
+            CONSTRUCT { ?parent ?property $this }
+            WHERE {
+                $this ddo:name ?name ; ddo:parent ?parent .
+                BIND(iri(str(n:) + str(?name)) AS ?property)
+            }
+        """ ;
+    ] .
+
+ddo:Object
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Element .
+
+ddo:Occurrence
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Individual ;
+	sh:rule [
+        rdf:type sh:SPARQLRule ;
+        sh:prefixes ddo:Prefixes ;
+        ddo:order 3 ;
+        ddo:forwardChaining true ;
+        sh:construct """
+            CONSTRUCT { $this rdf:type ?class }
+            WHERE {
+                $this ddo:instanceOf ?name ; ddo:parent/rdf:type ?compositeClass .
+                ?compositeClass ?name ?class .
+            }
+        """ ;
+    ] .
+
+ddo:OccurrenceClass
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Clabject .

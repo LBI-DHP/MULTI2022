@@ -1,0 +1,65 @@
+@prefix rdf:	<http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix sh:		<http://www.w3.org/ns/shacl#> .
+@prefix xsd:	<http://www.w3.org/2001/XMLSchema#> .
+@prefix ddo:	<http://dke.jku.at/ddo#> .
+@prefix n:      <http://dke.jku.at/ddo-hasNamedChild#> .
+
+ddo:AbstractClass
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Clabject .
+
+ddo:Class
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Element , rdfs:Class , sh:NodeShape .
+
+ddo:Clabject
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf ddo:Object , ddo:Class .
+
+ddo:ConcreteClass
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Clabject .
+
+ddo:DomainObject
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Individual .
+
+ddo:DomainObjectClass
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Clabject .
+
+ddo:Individual
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Object .
+
+ddo:InducedClass
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Clabject .
+
+ddo:MetaClass
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Class .
+
+ddo:MetaElement
+	rdf:type rdfs:Class , sh:NodeShape .
+
+ddo:ModeledClass
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Clabject .
+
+ddo:Element
+	rdf:type rdfs:Class , sh:NodeShape .
+
+ddo:Object
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Element .
+
+ddo:Occurrence
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Individual .
+
+ddo:OccurrenceClass
+	rdf:type ddo:MetaElement , rdfs:Class , sh:NodeShape ;
+	rdfs:subClassOf	ddo:Clabject .
