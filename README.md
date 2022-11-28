@@ -2,6 +2,10 @@
 
 <h2 align="center">Towards Integration-Preserving Customization of Just-in-Time Adaptive Interventions with Composite Clabjects in RDF and SHACL</h2>
 <h3 align="center">Demonstration</h3>
+
+### Paper
+
+Sebastian Gruber, Bernd Neumayr, and Jan David Smeddinck. 2022. Towards integration-preserving customization of just-in-time adaptive interventions with composite clabjects in RDF and SHACL. In Proceedings of the 25th International Conference on Model Driven Engineering Languages and Systems: Companion Proceedings (MODELS '22). Association for Computing Machinery, New York, NY, USA, 458–462. https://doi.org/10.1145/3550356.3561608
   
 ### Foundations
 
