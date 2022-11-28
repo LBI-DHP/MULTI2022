@@ -27,18 +27,21 @@ By default, all examples from the paper are loaded. We provide the default versi
 
 ### Multi-level Modeling Playground
 
-![github](https://user-images.githubusercontent.com/26625992/179472082-fd3b9168-412c-472c-816e-e109501ffda8.jpg)
+![github](https://user-images.githubusercontent.com/26625992/204273643-0256ef67-724b-4af9-a762-a270871af378.jpg)
 
 The <em>main menu</em> offers the following functionality:
-* Model > Open: Open a model
-* Model > Save: Save current model
-* Model > Validate: Validation of the current model with regard to the SHACL shapes of the model
+* Domain Model > Open: Open a model
+* Domain Model > Save: Save current model
+* Domain Model > Validate: Validation of the current model with regard to the SHACL shapes of the model
 * Edit > Undo: Undo the last assertion (up to 5 times).
 * Edit > Redo: Redo the last undone assertion.
 * Edit > Globals: View and maintain things outside the hierarchy.
 * View > SPARQL Query: Perform a SPARQL query.
+* View > Linguistic Model: The linguistic model underlying this implementation (and not part of the paper).
 
 The <em>search field</em> allows navigation within the composite clabject hierarchy with auto complete support.
+
+The <em>Add</em> and <em>Delete</em> allow for modeling and removing objects and classes. This is not part of the paper and also not required for running the examples from the paper.
 
 The <em>tree view</em> also allows for navigation within the composite clabject hierarchy, with clabjects being represented by their local name and specialization indicated by ">". Objects are additionally marked by a file symbol, classes by folders and meta classes by double folders.
 
